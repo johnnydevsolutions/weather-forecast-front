@@ -238,7 +238,8 @@ export default defineComponent({
 
     onMounted(async () => {
       try {
-        forecasts.value = await getWeatherForecasts();
+        const data = await getWeatherForecasts();
+        forecasts.value = data.sort((a: { date: string }, b: { date: string }) => new Date(b.date).getTime() - new Date(a.date).getTime());
       } catch (error) {
         console.error('Erro ao carregar previsões:', error);
       }
